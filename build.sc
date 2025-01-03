@@ -7,7 +7,7 @@ import scalalib._
 // support BSP
 import mill.bsp._
 
-object demo extends SbtModule { m =>
+object demo extends SbtTests { m =>
   override def millSourcePath = os.pwd
   override def scalaVersion = "2.13.15"
   override def scalacOptions = Seq(
@@ -22,7 +22,7 @@ object demo extends SbtModule { m =>
   override def scalacPluginIvyDeps = Agg(
     ivy"org.chipsalliance:::chisel-plugin:6.6.0",
   )
-  object test extends SbtModuleTests with TestModule.ScalaTest {
+  object test extends SbtTests with TestModule.ScalaTest {
     override def ivyDeps = m.ivyDeps() ++ Agg(
       ivy"org.scalatest::scalatest::3.2.16"
     )
