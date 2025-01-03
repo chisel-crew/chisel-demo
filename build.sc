@@ -16,15 +16,23 @@ object demo extends SbtTests { m =>
     "-feature",
     "-Xcheckinit",
   )
-  override def ivyDeps = Agg(
-    ivy"org.chipsalliance::chisel:6.6.0",
-  )
-  override def scalacPluginIvyDeps = Agg(
-    ivy"org.chipsalliance:::chisel-plugin:6.6.0",
-  )
-  object test extends SbtTests with TestModule.ScalaTest {
+ 
+  override def ivyDeps             = Agg(ivy"org.chipsalliance::chisel:6.6.0")
+  override def scalacPluginIvyDeps = Agg(ivy"org.chipsalliance:::chisel-plugin:6.6.0")
+
+  object test extends ScalaTests with TestModule.ScalaTest with ScalafmtModule {
     override def ivyDeps = m.ivyDeps() ++ Agg(
-      ivy"org.scalatest::scalatest::3.2.16"
+      ivy"org.scalatest::scalatest::3.2.19",
+      // for formal flow in future
+      ivy"edu.berkeley.cs::chiseltest:6.0.0"
     )
+  }
+
+  def repositoriesTask = T.task {
+    Seq(
+      coursier.MavenRepository("https://repo.scala-sbt.org/scalasbt/maven-releases"),
+      coursier.MavenRepository("https://oss.sonatype.org/content/repositories/releases"),
+      coursier.MavenRepository("https://oss.sonatype.org/content/repositories/snapshots")
+    ) ++ super.repositoriesTask()
   }
 }
