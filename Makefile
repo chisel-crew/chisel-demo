@@ -13,10 +13,10 @@ verilog:
 help:
 	mill -i $(PRJ).runMain Elaborate --help
 
-reformat:
+fmt:
 	mill -i __.reformat
 
-checkformat:
+fmtcheck:
 	mill -i __.checkFormat
 
 bsp:
@@ -25,7 +25,7 @@ bsp:
 clean:
 	-rm -rf $(BUILD_DIR)
 
-.PHONY: test verilog help reformat checkformat clean
+.PHONY: test verilog help fmt fmtcheck clean
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
