@@ -3,7 +3,7 @@ import mill._
 import mill.define.Sources
 import mill.modules.Util
 import mill.scalalib.TestModule.ScalaTest
-import scalalib._
+import mill.scalalib._
 // support BSP
 import mill.bsp._
 
@@ -13,7 +13,7 @@ import mill.bsp._
 // to properly generate and handle test directories and output files.
 // See: https://github.com/com-lihaoyi/mill/issues/3840
 
-object `chisel-demo` extends SbtModule { m =>
+object demo extends SbtModule { m =>
   override def millSourcePath = super.millSourcePath / os.up
   override def scalaVersion = "2.13.16"
   override def scalacOptions = Seq(
@@ -30,7 +30,15 @@ object `chisel-demo` extends SbtModule { m =>
   )
   object test extends SbtTests with TestModule.ScalaTest {
     override def ivyDeps = m.ivyDeps() ++ Agg(
-      ivy"org.scalatest::scalatest::3.2.16"
+      ivy"org.scalatest::scalatest::3.2.19"
     )
+  }
+
+    def repositoriesTask = Task.Anon {
+    Seq(
+      coursier.MavenRepository("https://repo.scala-sbt.org/scalasbt/maven-releases"),
+      coursier.MavenRepository("https://oss.sonatype.org/content/repositories/releases"),
+      coursier.MavenRepository("https://oss.sonatype.org/content/repositories/snapshots")
+    ) ++ super.repositoriesTask()
   }
 }
