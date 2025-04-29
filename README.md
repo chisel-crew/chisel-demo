@@ -3,7 +3,8 @@ Chisel Project Template
 ## Setup
 - Install Java JDK: `sudo apt install openjdk-21-jdk`
 - Install `Mill` from [here](https://mill-build.org/mill/cli/installation-ide.html)
-- Install `Verilator`: `sudo apt install -y verilator`
+- (Optional) Install `Verilator` and `GTKVawe`: `sudo apt install -y verilator gtkwave`
 
-## Run the test
-- `mill chisel-demo.test`
+## Usage
+- Simulation: `make sim`
+- Verilog: `make verilog`
